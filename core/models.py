@@ -8,7 +8,7 @@ PNOPTIONS = (
 )
 
 class User(AbstractUser):
-    name = models.CharField(max_length=225, blank=True, null=True, default="")
+    pass
 
 class UserProfile(models.Model):
     name = models.CharField(max_length=225)

@@ -20,14 +20,16 @@ from core import views
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
-# router.register('userprofiles', views.UserProfileViewSet, basename='userprofile')
+# router.register('users', views.UserViewSet, basename='user')
 # router.register('posts', views.PostViewSet, basename='post')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api-auth/', include('rest_framework.urls')),
+    # path('api-auth/', include('rest_framework.urls', namespace="rest_framework")),
     path('api/auth/', include('djoser.urls.authtoken')),
     path('api/', include(router.urls)),
+    path('api/auth/', include('djoser.urls')),
+    path('api/users/', views.UserView.as_view())
 ]
 
 if settings.DEBUG:
