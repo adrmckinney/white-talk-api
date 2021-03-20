@@ -12,12 +12,12 @@ django-debug-toolbar = "*"
 werkzeug = "*"
 django-environ = "*"
 djangorestframework = "*"
-djoser = "*"
 markdown = "*"
 django-filter = "*"
 gunicorn = "*"
 django-heroku = "*"
 django-on-heroku = "*"
+djoser = "*"
 
 [requires]
 python_version = "3.9"
