@@ -1,1 +1,1 @@
-web: gunicorn white-talk-api.wsgi
+web: gunicorn project.wsgi
