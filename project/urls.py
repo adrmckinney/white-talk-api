@@ -16,7 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.conf import settings
 from django.urls import include, path
+from rest_framework.decorators import api_view
 from core import views
+from core import views as api_views
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
@@ -29,7 +31,8 @@ urlpatterns = [
     path('api/auth/', include('djoser.urls.authtoken')),
     path('api/', include(router.urls)),
     path('api/auth/', include('djoser.urls')),
-    path('api/users/', views.UserView.as_view())
+    path('api/users/', views.UserView.as_view()),
+    path('api/sessions/', api_views.SessionRegisterView.as_view())
 ]
 
 if settings.DEBUG:

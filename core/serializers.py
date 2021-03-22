@@ -8,3 +8,13 @@ class UserSerializer(serializers.ModelSerializer):
             'id',
             'username'
         ]
+
+class SessionRegisterSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SessionRegister
+        fields = [
+            'name',
+            'pronouns',
+            'email'
+            'comment'
+        ]

@@ -10,7 +10,7 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework.parsers import FormParser, JSONParser
 from core import serializers
 from core.models import User, SessionRegister
-from core.serializers import UserSerializer
+from core.serializers import UserSerializer, SessionRegisterSerializer
 
 class UserView(APIView):
     def get(self, request):
@@ -19,4 +19,11 @@ class UserView(APIView):
         serializer = UserSerializer(users, many=True)
         return Response(serializer.data)
 
-# class SessionRegister(ListCreateAPIView):
+class SessionRegisterView(ListCreateAPIView):
+    queryset = SessionRegister.objects.all()
+    serializer_class = SessionRegisterSerializer
+    def perform_create(self, serializer):
+        serializer.save()
+        return Response(serializer.data)
+
+    
