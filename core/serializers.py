@@ -15,6 +15,6 @@ class SessionRegisterSerializer(serializers.ModelSerializer):
         fields = [
             'name',
             'pronouns',
-            'email'
+            'email',
             'comment'
         ]

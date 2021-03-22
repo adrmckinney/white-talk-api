@@ -5,7 +5,7 @@ from rest_framework.generics import ListCreateAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.decorators import action, permission_classes
-from rest_framework.permissions import IsAuthenticated, SAFE_METHODS
+from rest_framework.permissions import AllowAny, IsAuthenticated, SAFE_METHODS
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.parsers import FormParser, JSONParser
 from core import serializers
@@ -22,6 +22,7 @@ class UserView(APIView):
 class SessionRegisterView(ListCreateAPIView):
     queryset = SessionRegister.objects.all()
     serializer_class = SessionRegisterSerializer
+    permission_classes = [permissions.AllowAny]
     def perform_create(self, serializer):
         serializer.save()
         return Response(serializer.data)
