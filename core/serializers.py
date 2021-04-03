@@ -13,6 +13,7 @@ class SessionRegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = SessionRegister
         fields = [
+            'pk',
             'name',
             'pronouns',
             'email',
