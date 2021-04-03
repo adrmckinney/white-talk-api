@@ -25,6 +25,8 @@ class SessionRegisterView(ListCreateAPIView):
     permission_classes = [permissions.AllowAny]
     def perform_create(self, serializer):
         serializer.save()
+        
+    def get(self, request):
+        session_registrations = SessionRegister.objects.all()
+        serializer = SessionRegisterSerializer(session_registrations, many=True)
         return Response(serializer.data)
-
-    
