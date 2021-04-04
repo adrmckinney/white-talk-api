@@ -29,14 +29,16 @@ class SessionRegisterView(ListCreateAPIView):
     permission_classes = [permissions.AllowAny]
     def perform_create(self, serializer):
         # breakpoint()
-        template = render_to_string('base/email_template.html', {'name': serializer.validated_data["name"]})
-        
+        template = render_to_string('base/email_template.html', 
+                                    {
+                                        'name': serializer.validated_data["name"]
+                                    })
         email = EmailMessage(
             'test email from Django',
             template,
             settings.EMAIL_HOST_USER,
             ['adrmckinney@icloud.com'],
-            # [request.user.profile.email]
+            # [serializer.validated_data["email"]]
         )
         email.fail_silently = False
         email.send()

@@ -16,3 +16,9 @@ class SessionRegister(models.Model):
     email = models.CharField(max_length=225, null=True, blank=True)
     comment = models.CharField(max_length=600, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
+
+class Session(models.Model):
+    title = models.CharField(max_length=225, null=True, blank=True)
+    start_date = models.CharField(max_length=100, null=True, blank=True)
+    end_date = models.CharField(max_length=100, null=True, blank=True)
+    description = models.CharField(max_length=600, null=True, blank=True)
