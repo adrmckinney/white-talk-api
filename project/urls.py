@@ -36,6 +36,7 @@ urlpatterns = [
     path('api/sessions/', api_views.Sessions.as_view()),
     path('api/create-session/', api_views.CreateSession.as_view()),
     path('api/delete-session/<int:pk>/', api_views.DeleteSession.as_view()),
+    path('api/update-session/<int:pk>/', api_views.UpdateSession.as_view()),
 ]
 
 if settings.DEBUG:

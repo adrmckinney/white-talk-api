@@ -2,7 +2,7 @@ from django.db.models.query import QuerySet
 from django.shortcuts import get_object_or_404, render
 from django.contrib.auth import get_user_model
 from rest_framework import permissions
-from rest_framework.generics import CreateAPIView, DestroyAPIView, ListAPIView, ListCreateAPIView
+from rest_framework.generics import CreateAPIView, DestroyAPIView, ListAPIView, ListCreateAPIView, UpdateAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.decorators import action, permission_classes
@@ -76,5 +76,16 @@ class DeleteSession(DestroyAPIView):
         session = get_object_or_404(Session, pk=pk)
 
         session.delete()
+        serializer = SessionSerializer(session)
+        return Response(serializer.data)
+
+class UpdateSession(UpdateAPIView):
+    queryset = Session.objects.all()
+    serializer_class = SessionSerializer
+
+    def partial_update(self, request, pk):
+        session = get_object_or_404(Session, pk=pk)
+
+        session.update()
         serializer = SessionSerializer(session)
         return Response(serializer.data)
