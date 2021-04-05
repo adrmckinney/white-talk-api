@@ -28,5 +28,6 @@ class SessionSerializer(serializers.ModelSerializer):
             'title',
             'start_date',
             'end_date',
-            'description'
+            'description',
+            'session_status'
         ]

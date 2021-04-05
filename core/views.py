@@ -2,7 +2,7 @@ from django.db.models.query import QuerySet
 from django.shortcuts import get_object_or_404, render
 from django.contrib.auth import get_user_model
 from rest_framework import permissions
-from rest_framework.generics import CreateAPIView, ListAPIView, ListCreateAPIView
+from rest_framework.generics import CreateAPIView, DestroyAPIView, ListAPIView, ListCreateAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.decorators import action, permission_classes
@@ -66,4 +66,15 @@ class Sessions(ListAPIView):
     def get(self, request):
         sessions = Session.objects.all()
         serializer = SessionSerializer(sessions, many=True)
+        return Response(serializer.data)
+
+class DeleteSession(DestroyAPIView):
+    queryset = Session.objects.all()
+    serializer_class = SessionSerializer
+
+    def delete(self, request, pk):
+        session = get_object_or_404(Session, pk=pk)
+
+        session.delete()
+        serializer = SessionSerializer(session)
         return Response(serializer.data)
