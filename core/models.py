@@ -22,3 +22,4 @@ class Session(models.Model):
     start_date = models.CharField(max_length=100, null=True, blank=True)
     end_date = models.CharField(max_length=100, null=True, blank=True)
     description = models.CharField(max_length=600, null=True, blank=True)
+    session_status = models.BooleanField(default=False)
