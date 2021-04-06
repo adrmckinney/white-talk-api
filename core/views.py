@@ -31,7 +31,7 @@ class SessionRegisterView(ListCreateAPIView):
         # breakpoint()
         template = render_to_string('base/email_template.html', 
                                     {
-                                        'name': serializer.validated_data["name"]
+                                        'first_name': serializer.validated_data["first_name"]
                                     })
         email = EmailMessage(
             'test email from Django',

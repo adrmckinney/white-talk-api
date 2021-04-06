@@ -11,7 +11,8 @@ class User(AbstractUser):
     pass
 
 class SessionRegister(models.Model):
-    name = models.CharField(max_length=225)
+    first_name = models.CharField(max_length=225, null=True, blank=True)
+    last_name = models.CharField(max_length=225, null=True, blank=True)
     pronouns = models.CharField(max_length=100, choices=PRONOUN_OPTIONS, null=True)
     email = models.CharField(max_length=225, null=True, blank=True)
     comment = models.CharField(max_length=600, null=True, blank=True)
