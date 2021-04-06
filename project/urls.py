@@ -32,6 +32,7 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('api/auth/', include('djoser.urls')),
     path('api/users/', views.UserView.as_view()),
+    path('api/my-login/', views.LoggedInUserView.as_view()),
     path('api/session-register/', api_views.SessionRegisterView.as_view()),
     path('api/sessions/', api_views.Sessions.as_view()),
     path('api/create-session/', api_views.CreateSession.as_view()),

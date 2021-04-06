@@ -4,6 +4,7 @@ from django.contrib.auth import get_user_model
 from rest_framework import permissions
 from rest_framework.generics import CreateAPIView, DestroyAPIView, ListAPIView, ListCreateAPIView, UpdateAPIView
 from rest_framework.response import Response
+from rest_framework.serializers import Serializer
 from rest_framework.views import APIView
 from rest_framework.decorators import action, permission_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated, SAFE_METHODS
@@ -22,6 +23,12 @@ class UserView(APIView):
         # takes all the user info and turns it into JSON
         serializer = UserSerializer(users, many=True)
         return Response(serializer.data)
+
+class LoggedInUserView(APIView):
+    def get(self, request):
+        user = self.request.user
+        serializer = UserSerializer(user)
+        return Response(data=serializer.data)
 
 class SessionRegisterView(ListCreateAPIView):
     queryset = SessionRegister.objects.all()
