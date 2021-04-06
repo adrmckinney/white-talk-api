@@ -14,7 +14,8 @@ class SessionRegisterSerializer(serializers.ModelSerializer):
         model = SessionRegister
         fields = [
             'pk',
-            'name',
+            'first_name',
+            'last_name',
             'pronouns',
             'email',
             'comment'
