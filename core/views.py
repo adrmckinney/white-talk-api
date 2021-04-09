@@ -11,7 +11,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated, SAFE_METHODS
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.parsers import FormParser, JSONParser
 from core import serializers
-from core.models import User, SessionRegister, Session
+from core.models import User, SessionRegistrant, Session
 from core.serializers import UserSerializer, SessionRegisterSerializer, SessionSerializer
 from django.core.mail import EmailMessage
 from django.conf import settings
@@ -25,13 +25,15 @@ class UserView(APIView):
         return Response(serializer.data)
 
 class LoggedInUserView(APIView):
+    permission_classes = [IsAuthenticated]
+    
     def get(self, request):
         user = self.request.user
         serializer = UserSerializer(user)
         return Response(data=serializer.data)
 
 class SessionRegisterView(ListCreateAPIView):
-    queryset = SessionRegister.objects.all()
+    queryset = SessionRegistrant.objects.all()
     serializer_class = SessionRegisterSerializer
     permission_classes = [permissions.AllowAny]
     def perform_create(self, serializer):
@@ -53,7 +55,7 @@ class SessionRegisterView(ListCreateAPIView):
         serializer.save()
         
     def get(self, request):
-        session_registrations = SessionRegister.objects.all()
+        session_registrations = SessionRegistrant.objects.all()
         serializer = SessionRegisterSerializer(session_registrations, many=True)
         return Response(serializer.data)
 
