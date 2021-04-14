@@ -37,7 +37,8 @@ class SessionRegisterView(ListCreateAPIView):
     serializer_class = SessionRegisterSerializer
     permission_classes = [permissions.AllowAny]
     def perform_create(self, serializer):
-        # breakpoint()
+        breakpoint()
+        # local email set up with personal gmail account
         template = render_to_string('base/email_template.html', 
                                     {
                                         'first_name': serializer.validated_data["first_name"]
@@ -47,13 +48,23 @@ class SessionRegisterView(ListCreateAPIView):
             template,
             settings.EMAIL_HOST_USER,
             ['adrmckinney@icloud.com'],
-            # [serializer.validated_data["email"]]
+            [serializer.validated_data["email"]]
         )
         email.fail_silently = False
         email.send()
         
         serializer.save()
-        
+    
+    # This is for mailgun on heroku. Not sure where it goes.
+    def send_simple_message():
+        return requests.post(
+            "https://api.mailgun.net/v3/YOUR_DOMAIN_NAME/messages",
+            auth=("api", "YOUR_API_KEY"),
+            data={"from": "Excited User <mailgun@YOUR_DOMAIN_NAME>",
+                "to": ["bar@example.com", "YOU@YOUR_DOMAIN_NAME"],
+                "subject": "Hello",
+                "text": "Testing some Mailgun awesomness!"})
+
     def get(self, request):
         session_registrations = SessionRegistrant.objects.all()
         serializer = SessionRegisterSerializer(session_registrations, many=True)
