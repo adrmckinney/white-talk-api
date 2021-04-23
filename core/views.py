@@ -39,19 +39,19 @@ class SessionRegisterView(ListCreateAPIView):
     def perform_create(self, serializer):
 
         # local email set up with personal gmail account
-        template = render_to_string('base/email_template.html', 
-                                    {
-                                        'first_name': serializer.validated_data["first_name"]
-                                    })
-        email = EmailMessage(
-            'test email from Django',
-            template,
-            settings.EMAIL_HOST_USER,
-            ['adrmckinney@icloud.com'],
-            [serializer.validated_data["email"]]
-        )
-        email.fail_silently = False
-        email.send()
+        # template = render_to_string('base/email_template.html', 
+        #                             {
+        #                                 'first_name': serializer.validated_data["first_name"]
+        #                             })
+        # email = EmailMessage(
+        #     'test email from Django',
+        #     template,
+        #     settings.EMAIL_HOST_USER,
+        #     ['adrmckinney@icloud.com'],
+        #     [serializer.validated_data["email"]]
+        # )
+        # email.fail_silently = False
+        # email.send()
         
         serializer.save()
     
