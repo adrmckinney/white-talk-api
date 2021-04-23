@@ -109,3 +109,14 @@ class UpdateSession(UpdateAPIView):
         session.update()
         serializer = SessionSerializer(session)
         return Response(serializer.data)
+
+class DeleteSessionRegistrant(DestroyAPIView):
+    queryset = SessionRegistrant.objects.all()
+    serializer_class = SessionRegisterSerializer
+
+    def delete(self, request, pk):
+        registrant = get_object_or_404(SessionRegistrant, pk=pk)
+
+        registrant.delete()
+        serializer = SessionRegisterSerializer(registrant)
+        return Response(serializer.data)
