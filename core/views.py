@@ -37,7 +37,7 @@ class SessionRegisterView(ListCreateAPIView):
     serializer_class = SessionRegisterSerializer
     permission_classes = [permissions.AllowAny]
     def perform_create(self, serializer):
-        breakpoint()
+
         # local email set up with personal gmail account
         template = render_to_string('base/email_template.html', 
                                     {
