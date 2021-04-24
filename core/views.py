@@ -120,3 +120,14 @@ class DeleteSessionRegistrant(DestroyAPIView):
         registrant.delete()
         serializer = SessionRegisterSerializer(registrant)
         return Response(serializer.data)
+
+class UpdateSessionRegistrant(UpdateAPIView):
+    queryset = SessionRegistrant.objects.all()
+    serializer_class = SessionRegisterSerializer
+
+    def partial_update(self, request, pk):
+        registrant = get_object_or_404(SessionRegistrant, pk=pk)
+
+        registrant.update()
+        serializer = SessionRegisterSerializer(registrant)
+        return Response(serializer.data)

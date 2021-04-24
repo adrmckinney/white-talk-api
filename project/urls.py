@@ -39,6 +39,7 @@ urlpatterns = [
     path('api/delete-session/<int:pk>/', api_views.DeleteSession.as_view()),
     path('api/update-session/<int:pk>/', api_views.UpdateSession.as_view()),
     path('api/delete-registrant/<int:pk>/', api_views.DeleteSessionRegistrant.as_view()),
+    path('api/update-registrant/<int:pk>/', api_views.UpdateSessionRegistrant.as_view()),
 ]
 
 if settings.DEBUG:
