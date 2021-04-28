@@ -155,9 +155,8 @@ INTERNAL_IPS = [
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        # 'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-        # 'rest_framework.authentication.BasicAuthentication',
     ],
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
@@ -171,7 +170,6 @@ SIMPLE_JWT = {
 }
 
 ## CORS settings
-
 CORS_ALLOW_ALL_ORIGINS = True
 
 # Activate Django-Heroku.
@@ -185,15 +183,17 @@ DJOSER = {
     'USERNAME_CHANGED_EMAIL_CONFIRMATION': True,
     'PASSWORD_CHANGED_EMAIL_CONFIRMATION': True,
     'SEND_CONFIRMATION_EMAIL': True,
+    'USERNAME_RESET_SHOW_EMAIL_NOT_FOUND': True,
+    'PASSWORD_RESET_SHOW_EMAIL_NOT_FOUND': True,
     'PASSWORD_RESET_CONFIRM_URL': 'password/reset/confirm/{uid}/{token}',
     'USERNAME_RESET_CONFIRM_URL': 'username/reset/confirm/{uid}/{token}', # note, if using email as auth then 'username' would need to be 'email/reset…' also needs to be set up in model under class UserAccount(AbstractBaseUser, PermissionsMixin)  here's the link: https://www.youtube.com/watch?v=lFD5uoCcvSA
-    'ACTIVATION_URL': 'activate/{uid}/{token}',
-    'SEND_ACTIVATION_EMAIL': True,
-    'SERIALIZERS': {
-        'user_create': 'core.serializers.User',
-        'user': 'core.serializers.User',
-        'user_delete': 'djoser.serializers.UserDeleteSerializer',
-    },
+    # 'ACTIVATION_URL': 'activate/{uid}/{token}',
+    # 'SEND_ACTIVATION_EMAIL': True,
+    # 'SERIALIZERS': {
+    #     'user_create': 'core.serializers.User',
+    #     'user': 'core.serializers.User',
+    #     'user_delete': 'djoser.serializers.UserDeleteSerializer',
+    # },
 }
 
 
