@@ -15,7 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.conf import settings
-from django.urls import include, path
+from django.urls import include, path, re_path
+from django.views.generic import TemplateView
 from rest_framework.decorators import api_view
 from core import views
 from core import views as api_views
@@ -31,6 +32,7 @@ urlpatterns = [
     path('api/auth/', include('djoser.urls.authtoken')),
     path('api/', include(router.urls)),
     path('api/auth/', include('djoser.urls')),
+    path('api/auth/', include('djoser.urls.jwt')),
     path('api/users/', views.UserView.as_view()),
     path('api/my-login/', views.LoggedInUserView.as_view()),
     path('api/session-register/', api_views.SessionRegisterView.as_view()),
@@ -41,6 +43,8 @@ urlpatterns = [
     path('api/delete-registrant/<int:pk>/', api_views.DeleteSessionRegistrant.as_view()),
     path('api/update-registrant/<int:pk>/', api_views.UpdateSessionRegistrant.as_view()),
 ]
+
+urlpatterns += [re_path(r'^.*', TemplateView.as_view(template_name='index.html'))]
 
 if settings.DEBUG:
     import debug_toolbar

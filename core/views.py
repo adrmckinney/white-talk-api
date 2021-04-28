@@ -11,17 +11,18 @@ from rest_framework.permissions import AllowAny, IsAuthenticated, SAFE_METHODS
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.parsers import FormParser, JSONParser
 from core import serializers
-from core.models import User, SessionRegistrant, Session
-from core.serializers import UserSerializer, SessionRegisterSerializer, SessionSerializer
+from core.models import UserAccount, SessionRegistrant, Session #User
+from core.serializers import SessionRegisterSerializer, SessionSerializer, UserCreateSerializer #, UserSerializer
 from django.core.mail import EmailMessage
 from django.conf import settings
 from django.template.loader import render_to_string
+from rest_framework_simplejwt.tokens import RefreshToken
 
 class UserView(APIView):
     def get(self, request):
-        users = User.objects.all()
+        users = UserAccount.objects.all() #was User.objects
         # takes all the user info and turns it into JSON
-        serializer = UserSerializer(users, many=True)
+        serializer = UserCreateSerializer(users, many=True)
         return Response(serializer.data)
 
 class LoggedInUserView(APIView):
@@ -29,7 +30,7 @@ class LoggedInUserView(APIView):
     
     def get(self, request):
         user = self.request.user
-        serializer = UserSerializer(user)
+        serializer = UserCreateSerializer(user)
         return Response(data=serializer.data)
 
 class SessionRegisterView(ListCreateAPIView):
