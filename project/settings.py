@@ -141,7 +141,7 @@ STATICFILES_DIRS = [
 
 # Custom user model
 
-AUTH_USER_MODEL = 'core.UserAccount'
+AUTH_USER_MODEL = 'core.User'
 
 # Debug toolbar config
 
@@ -190,8 +190,8 @@ DJOSER = {
     'ACTIVATION_URL': 'activate/{uid}/{token}',
     'SEND_ACTIVATION_EMAIL': True,
     'SERIALIZERS': {
-        'user_create': 'core.serializers.UserCreateSerializer',
-        'user': 'core.serializers.UserCreateSerializer',
+        'user_create': 'core.serializers.User',
+        'user': 'core.serializers.User',
         'user_delete': 'djoser.serializers.UserDeleteSerializer',
     },
 }
