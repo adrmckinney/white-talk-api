@@ -42,6 +42,7 @@ urlpatterns = [
     path('api/update-session/<int:pk>/', api_views.UpdateSession.as_view()),
     path('api/delete-registrant/<int:pk>/', api_views.DeleteSessionRegistrant.as_view()),
     path('api/update-registrant/<int:pk>/', api_views.UpdateSessionRegistrant.as_view()),
+    path('password/reset/confirm/<int:uid>/<int:token>', api_views.UserView.as_view()),
 ]
 
 urlpatterns += [re_path(r'^.*', TemplateView.as_view(template_name='index.html'))]

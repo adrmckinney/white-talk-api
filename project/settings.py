@@ -74,7 +74,7 @@ ROOT_URLCONF = 'project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [os.path.join(BASE_DIR, 'build')], #templates
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -131,8 +131,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    BASE_DIR / 'static',
+    os.path.join(BASE_DIR, 'build/static')
+    # BASE_DIR / 'static',
 ]
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Extra places for collectstatic to find static files.
 # STATICFILES_DIRS = (
@@ -178,8 +180,9 @@ del DATABASES['default']['OPTIONS']['sslmode']
 
 # Djoser settings
 DJOSER = {
-    # to set up email as the login credential instead of username type...
-    # 'LOGIN_FIELD': 'email'
+    # 'DOMAIN': 'http://127.0.0.1:3000/',
+    # 'SITE_NAME': 'Racial Equity White Talk',
+
     'USERNAME_CHANGED_EMAIL_CONFIRMATION': True,
     'PASSWORD_CHANGED_EMAIL_CONFIRMATION': True,
     'SEND_CONFIRMATION_EMAIL': True,
@@ -187,6 +190,8 @@ DJOSER = {
     'PASSWORD_RESET_SHOW_EMAIL_NOT_FOUND': True,
     'PASSWORD_RESET_CONFIRM_URL': 'password/reset/confirm/{uid}/{token}',
     'USERNAME_RESET_CONFIRM_URL': 'username/reset/confirm/{uid}/{token}', # note, if using email as auth then 'username' would need to be 'email/reset…' also needs to be set up in model under class UserAccount(AbstractBaseUser, PermissionsMixin)  here's the link: https://www.youtube.com/watch?v=lFD5uoCcvSA
+    # to set up email as the login credential instead of username type...
+    # 'LOGIN_FIELD': 'email'
     # 'ACTIVATION_URL': 'activate/{uid}/{token}',
     # 'SEND_ACTIVATION_EMAIL': True,
     # 'SERIALIZERS': {

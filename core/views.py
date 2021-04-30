@@ -17,14 +17,21 @@ from django.core.mail import EmailMessage
 from django.conf import settings
 from django.template.loader import render_to_string
 from rest_framework_simplejwt.tokens import RefreshToken
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
+
+
+
 
 class UserView(APIView):
+    # @csrf_exempt
     def get(self, request):
         users = User.objects.all()
         # takes all the user info and turns it into JSON
         serializer = UserSerializer(users, many=True)
         return Response(serializer.data)
 
+# @method_decorator(csrf_exempt, name='dispatch')
 class LoggedInUserView(APIView):
     permission_classes = [IsAuthenticated]
     
