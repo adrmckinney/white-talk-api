@@ -180,9 +180,6 @@ del DATABASES['default']['OPTIONS']['sslmode']
 
 # Djoser settings
 DJOSER = {
-    # 'DOMAIN': 'http://127.0.0.1:3000/',
-    # 'SITE_NAME': 'Racial Equity White Talk',
-
     'USERNAME_CHANGED_EMAIL_CONFIRMATION': True,
     'PASSWORD_CHANGED_EMAIL_CONFIRMATION': True,
     'SEND_CONFIRMATION_EMAIL': True,
