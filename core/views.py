@@ -2,7 +2,7 @@ from django.db.models.query import QuerySet
 from django.shortcuts import get_object_or_404, render
 from django.contrib.auth import get_user_model
 from rest_framework import permissions
-from rest_framework.generics import CreateAPIView, DestroyAPIView, ListAPIView, ListCreateAPIView, UpdateAPIView
+from rest_framework.generics import CreateAPIView, DestroyAPIView, ListAPIView, ListCreateAPIView, RetrieveUpdateAPIView, RetrieveUpdateDestroyAPIView, UpdateAPIView
 from rest_framework.response import Response
 from rest_framework.serializers import Serializer
 from rest_framework.views import APIView
@@ -21,24 +21,34 @@ from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 
 
-
-
 class UserView(APIView):
-    # @csrf_exempt
     def get(self, request):
         users = User.objects.all()
-        # takes all the user info and turns it into JSON
         serializer = UserSerializer(users, many=True)
         return Response(serializer.data)
 
-# @method_decorator(csrf_exempt, name='dispatch')
 class LoggedInUserView(APIView):
     permission_classes = [IsAuthenticated]
     
     def get(self, request):
         user = self.request.user
         serializer = UserSerializer(user)
-        return Response(data=serializer.data)
+        return Response(serializer.data)
+
+class UpdateUserView(RetrieveUpdateDestroyAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = UserSerializer
+    # queryset = User.objects.all()
+    
+    def get_queryset(self, pk):
+        user = self.request.user
+        return user
+    # def partial_update(self, request, pk):
+    #     user = get_object_or_404(User, pk=pk)
+
+    #     user.update()
+    #     serializer = UserSerializer(user)
+    #     return Response(serializer.data)
 
 class SessionRegisterView(ListCreateAPIView):
     queryset = SessionRegistrant.objects.all()
