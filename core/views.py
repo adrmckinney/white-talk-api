@@ -43,12 +43,7 @@ class UpdateUserView(RetrieveUpdateDestroyAPIView):
     def get_queryset(self, pk):
         user = self.request.user
         return user
-    # def partial_update(self, request, pk):
-    #     user = get_object_or_404(User, pk=pk)
-
-    #     user.update()
-    #     serializer = UserSerializer(user)
-    #     return Response(serializer.data)
+    # sponse(serializer.data)
 
 class SessionRegisterView(ListCreateAPIView):
     queryset = SessionRegistrant.objects.all()
