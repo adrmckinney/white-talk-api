@@ -1,4 +1,4 @@
-from django.contrib.auth import default_app_config
+# from django.contrib.auth import default_app_config
 from django.db import models
 from django.contrib.auth.models import AbstractUser, AbstractBaseUser, PermissionsMixin, BaseUserManager
 from django.db.models.deletion import CASCADE
@@ -8,6 +8,7 @@ from django.db.models.deletion import CASCADE
 #     ("he/him/his", "he/him/his"),
 #     ("they/them/theirs", "they/them/theirs")
 # )
+
 
 class User(AbstractUser):
     # first_name = models.CharField(max_length=255)
@@ -42,13 +43,12 @@ class User(AbstractUser):
 
 #     def get_full_name(self):
 #         return self.first_name + self.last_name
-    
+
 #     def get_short_name(self):
 #         return self.first_name
-    
+
 #     def __str__(self):
 #         return self.first_name + ' ' + self.last_name
-    
 
 
 class Session(models.Model):
@@ -61,6 +61,7 @@ class Session(models.Model):
     def __str__(self):
         return self.title + ' ' + '(' + self.start_date + '-' + self.end_date + ')'
 
+
 class SessionRegistrant(models.Model):
     first_name = models.CharField(max_length=225, null=True, blank=True)
     last_name = models.CharField(max_length=225, null=True, blank=True)
@@ -68,7 +69,8 @@ class SessionRegistrant(models.Model):
     email = models.CharField(max_length=225, null=True, blank=True)
     comment = models.CharField(max_length=600, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    session = models.ForeignKey(Session, related_name='session_registrants', on_delete=CASCADE, null=True, blank=True)
+    session = models.ForeignKey(
+        Session, related_name='session_registrants', on_delete=CASCADE, null=True, blank=True)
 
     def __str__(self):
         return self.first_name + ' ' + self.last_name

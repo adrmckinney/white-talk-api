@@ -74,7 +74,7 @@ ROOT_URLCONF = 'project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'build')], #templates
+        'DIRS': [os.path.join(BASE_DIR, 'build')],  # templates
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -168,10 +168,10 @@ REST_FRAMEWORK = {
 }
 
 SIMPLE_JWT = {
-   'AUTH_HEADER_TYPES': ('JWT',),
+    'AUTH_HEADER_TYPES': ('JWT',),
 }
 
-## CORS settings
+# CORS settings
 CORS_ALLOW_ALL_ORIGINS = True
 
 # Activate Django-Heroku.
@@ -180,13 +180,16 @@ del DATABASES['default']['OPTIONS']['sslmode']
 
 # Djoser settings
 DJOSER = {
+    'USER_CREATE_PASSWORD_RETYPE': True,
+    'USERNAME_RESET_CONFIRM_RETYPE': True,
     'USERNAME_CHANGED_EMAIL_CONFIRMATION': True,
     'PASSWORD_CHANGED_EMAIL_CONFIRMATION': True,
     'SEND_CONFIRMATION_EMAIL': True,
     'USERNAME_RESET_SHOW_EMAIL_NOT_FOUND': True,
     'PASSWORD_RESET_SHOW_EMAIL_NOT_FOUND': True,
     'PASSWORD_RESET_CONFIRM_URL': 'password/reset/confirm/{uid}/{token}',
-    'USERNAME_RESET_CONFIRM_URL': 'username/reset/confirm/{uid}/{token}', # note, if using email as auth then 'username' would need to be 'email/reset…' also needs to be set up in model under class UserAccount(AbstractBaseUser, PermissionsMixin)  here's the link: https://www.youtube.com/watch?v=lFD5uoCcvSA
+    # note, if using email as auth then 'username' would need to be 'email/reset…' also needs to be set up in model under class UserAccount(AbstractBaseUser, PermissionsMixin)  here's the link: https://www.youtube.com/watch?v=lFD5uoCcvSA
+    'USERNAME_RESET_CONFIRM_URL': 'username/reset/confirm/{uid}/{token}',
     # to set up email as the login credential instead of username type...
     # 'LOGIN_FIELD': 'email'
     # 'ACTIVATION_URL': 'activate/{uid}/{token}',
@@ -207,7 +210,7 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = env('HOST_EMAIL')
 EMAIL_HOST_PASSWORD = env('EMAIL_PASSWORD')
 
-#SMTP config for mailgun (heroku deployed)
+# SMTP config for mailgun (heroku deployed)
 # EMAIL_HOST = os.environ.get('MAILGUN_SMTP_SERVER', '')
 # EMAIL_PORT = os.environ.get('MAILGUN_SMTP_PORT', '')
 # EMAIL_HOST_USER = os.environ.get('MAILGUN_SMTP_LOGIN', '')
