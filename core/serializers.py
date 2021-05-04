@@ -4,6 +4,7 @@ from rest_framework import serializers
 from rest_framework.fields import ReadOnlyField
 from core.models import User, SessionRegistrant, Session
 
+
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -14,6 +15,7 @@ class UserSerializer(serializers.ModelSerializer):
             'last_name',
             'email'
         ]
+
 
 class SessionRegisterSerializer(serializers.ModelSerializer):
 
@@ -29,6 +31,7 @@ class SessionRegisterSerializer(serializers.ModelSerializer):
             'session',
         ]
 
+
 class SessionSerializer(serializers.ModelSerializer):
     session_registrants = SessionRegisterSerializer(many=True, read_only=True)
 
@@ -39,6 +42,8 @@ class SessionSerializer(serializers.ModelSerializer):
             'title',
             'start_date',
             'end_date',
+            'start_time',
+            'end_time',
             'description',
             'session_status',
             'session_registrants',

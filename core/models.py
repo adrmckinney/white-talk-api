@@ -55,6 +55,8 @@ class Session(models.Model):
     title = models.CharField(max_length=225, null=True, blank=True)
     start_date = models.CharField(max_length=100, null=True, blank=True)
     end_date = models.CharField(max_length=100, null=True, blank=True)
+    start_time = models.CharField(max_length=100, null=True, blank=True)
+    end_time = models.CharField(max_length=100, null=True, blank=True)
     description = models.CharField(max_length=600, null=True, blank=True)
     session_status = models.BooleanField(default=False)
 
