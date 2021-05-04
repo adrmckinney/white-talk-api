@@ -59,6 +59,7 @@ class Session(models.Model):
     end_time = models.CharField(max_length=100, null=True, blank=True)
     description = models.CharField(max_length=600, null=True, blank=True)
     session_status = models.BooleanField(default=False)
+    number_of_registrants = models.IntegerField(default=8)
 
     def __str__(self):
         return self.title + ' ' + '(' + self.start_date + '-' + self.end_date + ')'
