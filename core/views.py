@@ -12,7 +12,8 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework.parsers import FormParser, JSONParser
 from core import serializers
 from core.models import User, SessionRegistrant, Session
-from core.serializers import SessionRegisterSerializer, SessionSerializer, UserSerializer #UserCreateSerializer
+# UserCreateSerializer
+from core.serializers import SessionRegisterSerializer, SessionSerializer, UserSerializer
 from django.core.mail import EmailMessage
 from django.conf import settings
 from django.template.loader import render_to_string
@@ -27,32 +28,36 @@ class UserView(APIView):
         serializer = UserSerializer(users, many=True)
         return Response(serializer.data)
 
+
 class LoggedInUserView(APIView):
     permission_classes = [IsAuthenticated]
-    
+
     def get(self, request):
         user = self.request.user
         serializer = UserSerializer(user)
         return Response(serializer.data)
 
+
 class UpdateUserView(RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = UserSerializer
     # queryset = User.objects.all()
-    
+
     def get_queryset(self, pk):
         user = self.request.user
         return user
     # sponse(serializer.data)
 
+
 class SessionRegisterView(ListCreateAPIView):
     queryset = SessionRegistrant.objects.all()
     serializer_class = SessionRegisterSerializer
     permission_classes = [permissions.AllowAny]
+
     def perform_create(self, serializer):
 
         # local email set up with personal gmail account
-        # template = render_to_string('base/email_template.html', 
+        # template = render_to_string('base/email_template.html',
         #                             {
         #                                 'first_name': serializer.validated_data["first_name"]
         #                             })
@@ -61,13 +66,13 @@ class SessionRegisterView(ListCreateAPIView):
         #     template,
         #     settings.EMAIL_HOST_USER,
         #     ['adrmckinney@icloud.com'],
-        #     [serializer.validated_data["email"]]
+        # [serializer.validated_data["email"]]
         # )
         # email.fail_silently = False
         # email.send()
-        
+
         serializer.save()
-    
+
     # This is for mailgun on heroku. Not sure where it goes.
     # def send_simple_message():
     #     return requests.post(
@@ -80,8 +85,10 @@ class SessionRegisterView(ListCreateAPIView):
 
     def get(self, request):
         session_registrations = SessionRegistrant.objects.all()
-        serializer = SessionRegisterSerializer(session_registrations, many=True)
+        serializer = SessionRegisterSerializer(
+            session_registrations, many=True)
         return Response(serializer.data)
+
 
 class CreateSession(CreateAPIView):
     queryset = Session.objects.all()
@@ -91,15 +98,17 @@ class CreateSession(CreateAPIView):
     def perform_create(self, serializer):
         serializer.save()
 
+
 class Sessions(ListAPIView):
     queryset = Session.objects.all()
     serializer_class = SessionSerializer
     permission_classes = [permissions.AllowAny]
-    
+
     def get(self, request):
         sessions = Session.objects.all()
         serializer = SessionSerializer(sessions, many=True)
         return Response(serializer.data)
+
 
 class DeleteSession(DestroyAPIView):
     queryset = Session.objects.all()
@@ -112,6 +121,7 @@ class DeleteSession(DestroyAPIView):
         serializer = SessionSerializer(session)
         return Response(serializer.data)
 
+
 class UpdateSession(UpdateAPIView):
     queryset = Session.objects.all()
     serializer_class = SessionSerializer
@@ -123,6 +133,7 @@ class UpdateSession(UpdateAPIView):
         serializer = SessionSerializer(session)
         return Response(serializer.data)
 
+
 class DeleteSessionRegistrant(DestroyAPIView):
     queryset = SessionRegistrant.objects.all()
     serializer_class = SessionRegisterSerializer
@@ -133,6 +144,7 @@ class DeleteSessionRegistrant(DestroyAPIView):
         registrant.delete()
         serializer = SessionRegisterSerializer(registrant)
         return Response(serializer.data)
+
 
 class UpdateSessionRegistrant(UpdateAPIView):
     queryset = SessionRegistrant.objects.all()
