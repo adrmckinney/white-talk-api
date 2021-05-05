@@ -72,6 +72,7 @@ class SessionRegistrant(models.Model):
     email = models.CharField(max_length=225, null=True, blank=True)
     comment = models.CharField(max_length=600, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    confirm = models.BooleanField(default=False)
     session = models.ForeignKey(
         Session, related_name='session_registrants', on_delete=CASCADE, null=True, blank=True)
 

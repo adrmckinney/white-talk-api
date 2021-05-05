@@ -29,6 +29,7 @@ class SessionRegisterSerializer(serializers.ModelSerializer):
             'email',
             'comment',
             'session',
+            'confirm',
         ]
 
 
