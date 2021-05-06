@@ -71,23 +71,24 @@ class SessionRegisterView(ListCreateAPIView):
         # email.fail_silently = False
         # email.send()
 
+        # This is for mailgun on heroku. Not sure where it goes.
+        # def send_simple_message():
+        #     return requests.post(
+        #         "https://api.mailgun.net/v3/YOUR_DOMAIN_NAME/messages",
+        #         auth=("api", "YOUR_API_KEY"),
+        #         data={"from": "Excited User <mailgun@YOUR_DOMAIN_NAME>",
+        #             "to": ["bar@example.com", "YOU@YOUR_DOMAIN_NAME"],
+        #             "subject": "Hello",
+        #             "text": "Testing some Mailgun awesomness!"})
+
         serializer.save()
 
-    # This is for mailgun on heroku. Not sure where it goes.
-    # def send_simple_message():
-    #     return requests.post(
-    #         "https://api.mailgun.net/v3/YOUR_DOMAIN_NAME/messages",
-    #         auth=("api", "YOUR_API_KEY"),
-    #         data={"from": "Excited User <mailgun@YOUR_DOMAIN_NAME>",
-    #             "to": ["bar@example.com", "YOU@YOUR_DOMAIN_NAME"],
-    #             "subject": "Hello",
-    #             "text": "Testing some Mailgun awesomness!"})
 
-    def get(self, request):
-        session_registrations = SessionRegistrant.objects.all()
-        serializer = SessionRegisterSerializer(
-            session_registrations, many=True)
-        return Response(serializer.data)
+def get(self, request):
+    session_registrations = SessionRegistrant.objects.all()
+    serializer = SessionRegisterSerializer(
+        session_registrations, many=True)
+    return Response(serializer.data)
 
 
 class CreateSession(CreateAPIView):
