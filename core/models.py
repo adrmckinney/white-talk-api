@@ -59,7 +59,7 @@ class Session(models.Model):
     end_time = models.CharField(max_length=100, null=True, blank=True)
     description = models.CharField(max_length=600, null=True, blank=True)
     session_status = models.BooleanField(default=False)
-    number_of_registrants = models.IntegerField(default=8)
+    number_of_registrants_allowed = models.IntegerField(default=8)
     facilitator = models.CharField(max_length=225, null=True)
 
     def __str__(self):
