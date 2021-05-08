@@ -48,5 +48,6 @@ class SessionSerializer(serializers.ModelSerializer):
             'description',
             'session_status',
             'number_of_registrants',
+            'facilitator',
             'session_registrants',
         ]
