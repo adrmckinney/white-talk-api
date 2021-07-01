@@ -61,6 +61,7 @@ class Session(models.Model):
     session_status = models.BooleanField(default=False)
     number_of_registrants_allowed = models.IntegerField(default=8)
     facilitator = models.CharField(max_length=225, null=True)
+    facilitator_email = models.CharField(max_length=225, null=True, blank=True)
 
     def __str__(self):
         return self.title + ' ' + '(' + self.start_date + '-' + self.end_date + ')'

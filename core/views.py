@@ -20,6 +20,7 @@ from django.template.loader import render_to_string
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
+from django.core.mail import send_mail
 
 
 class UserView(APIView):
@@ -80,6 +81,9 @@ class SessionRegisterView(ListCreateAPIView):
         #             "to": ["bar@example.com", "YOU@YOUR_DOMAIN_NAME"],
         #             "subject": "Hello",
         #             "text": "Testing some Mailgun awesomness!"})
+
+        # send_mail('Someone Just Registered', 'This person just registered',
+        #           'adrmckinney@gmail.com', ['adrmckinney@gmail.com'])
 
         serializer.save()
 
