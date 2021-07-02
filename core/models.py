@@ -2,6 +2,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, AbstractBaseUser, PermissionsMixin, BaseUserManager
 from django.db.models.deletion import CASCADE
+from django.db.models.fields import TextField
 
 # PRONOUN_OPTIONS = (
 #     ("she/her/hers", "she/her/hers"),
@@ -80,3 +81,11 @@ class SessionRegistrant(models.Model):
 
     def __str__(self):
         return self.first_name + ' ' + self.last_name
+
+
+class Announcement(models.Model):
+    title = models.CharField(max_length=600, null=True, blank=True)
+    body = models.TextField(null=True, blank=True)
+    date_to_disappear = models.CharField(
+        max_length=225, null=True, blank=True)
+    status = models.BooleanField(default=False)

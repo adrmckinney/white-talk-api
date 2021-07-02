@@ -11,9 +11,9 @@ from rest_framework.permissions import AllowAny, IsAuthenticated, SAFE_METHODS
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.parsers import FormParser, JSONParser
 from core import serializers
-from core.models import User, SessionRegistrant, Session
+from core.models import Announcement, User, SessionRegistrant, Session
 # UserCreateSerializer
-from core.serializers import SessionRegisterSerializer, SessionSerializer, UserSerializer
+from core.serializers import AnnouncementSerializer, SessionRegisterSerializer, SessionSerializer, UserSerializer
 from django.core.mail import EmailMessage
 from django.conf import settings
 from django.template.loader import render_to_string
@@ -42,12 +42,10 @@ class LoggedInUserView(APIView):
 class UpdateUserView(RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = UserSerializer
-    # queryset = User.objects.all()
 
     def get_queryset(self, pk):
         user = self.request.user
         return user
-    # sponse(serializer.data)
 
 
 class SessionRegisterView(ListCreateAPIView):
@@ -56,43 +54,13 @@ class SessionRegisterView(ListCreateAPIView):
     permission_classes = [permissions.AllowAny]
 
     def perform_create(self, serializer):
-
-        # local email set up with personal gmail account
-        # template = render_to_string('base/email_template.html',
-        #                             {
-        #                                 'first_name': serializer.validated_data["first_name"]
-        #                             })
-        # email = EmailMessage(
-        #     'test email from Django',
-        #     template,
-        #     settings.EMAIL_HOST_USER,
-        #     ['adrmckinney@icloud.com'],
-        # [serializer.validated_data["email"]]
-        # )
-        # email.fail_silently = False
-        # email.send()
-
-        # This is for mailgun on heroku. Not sure where it goes.
-        # def send_simple_message():
-        #     return requests.post(
-        #         "https://api.mailgun.net/v3/YOUR_DOMAIN_NAME/messages",
-        #         auth=("api", "YOUR_API_KEY"),
-        #         data={"from": "Excited User <mailgun@YOUR_DOMAIN_NAME>",
-        #             "to": ["bar@example.com", "YOU@YOUR_DOMAIN_NAME"],
-        #             "subject": "Hello",
-        #             "text": "Testing some Mailgun awesomness!"})
-
-        # send_mail('Someone Just Registered', 'This person just registered',
-        #           'adrmckinney@gmail.com', ['adrmckinney@gmail.com'])
-
         serializer.save()
 
-
-def get(self, request):
-    session_registrations = SessionRegistrant.objects.all()
-    serializer = SessionRegisterSerializer(
-        session_registrations, many=True)
-    return Response(serializer.data)
+    def get(self, request):
+        session_registrations = SessionRegistrant.objects.all()
+        serializer = SessionRegisterSerializer(
+            session_registrations, many=True)
+        return Response(serializer.data)
 
 
 class CreateSession(CreateAPIView):
@@ -160,4 +128,18 @@ class UpdateSessionRegistrant(UpdateAPIView):
 
         registrant.update()
         serializer = SessionRegisterSerializer(registrant)
+        return Response(serializer.data)
+
+
+class CreateAnnouncement(ListCreateAPIView):
+    queryset = Announcement.objects.all()
+    serializer_class = AnnouncementSerializer
+
+    def perform_create(self, serializer):
+        serializer.save()
+
+    def get(self, request):
+        announcements = Announcement.objects.all()
+        serializer = AnnouncementSerializer(
+            announcements, many=True)
         return Response(serializer.data)
