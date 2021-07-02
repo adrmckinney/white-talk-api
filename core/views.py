@@ -143,3 +143,23 @@ class CreateAnnouncement(ListCreateAPIView):
         serializer = AnnouncementSerializer(
             announcements, many=True)
         return Response(serializer.data)
+
+
+class RetrieveUpdateDestroyAnnouncement(RetrieveUpdateDestroyAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = AnnouncementSerializer
+    queryset = Announcement.objects.all()
+
+    def delete(self, request, pk):
+        announcement = get_object_or_404(Announcement, pk=pk)
+
+        announcement.delete()
+        serializer = AnnouncementSerializer(announcement)
+        return Response(serializer.data)
+
+    def partial_update(self, request, pk):
+        announcement = get_object_or_404(Announcement, pk=pk)
+
+        announcement.update()
+        serializer = AnnouncementSerializer(announcement)
+        return Response(serializer.data)
