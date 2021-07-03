@@ -60,6 +60,7 @@ class AnnouncementSerializer(serializers.ModelSerializer):
         fields = [
             'pk',
             'title',
+            'body',
             'date_to_disappear',
             'status',
         ]
