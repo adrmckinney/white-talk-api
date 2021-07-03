@@ -145,6 +145,17 @@ class CreateAnnouncement(ListCreateAPIView):
         return Response(serializer.data)
 
 
+class ListAnnouncements(ListAPIView):
+    queryset = Announcement.objects.all()
+    serializer_class = AnnouncementSerializer
+    permission_classes = [permissions.AllowAny]
+
+    def get(self, request):
+        announcements = Announcement.objects.all()
+        serializer = AnnouncementSerializer(announcements, many=True)
+        return Response(serializer.data)
+
+
 class RetrieveUpdateDestroyAnnouncement(RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = AnnouncementSerializer
