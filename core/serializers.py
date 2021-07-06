@@ -30,6 +30,7 @@ class SessionRegisterSerializer(serializers.ModelSerializer):
             'comment',
             'session',
             'confirm',
+            'completed',
         ]
 
 
@@ -51,6 +52,7 @@ class SessionSerializer(serializers.ModelSerializer):
             'facilitator',
             'facilitator_email',
             'session_registrants',
+            'session_complete',
         ]
 
 

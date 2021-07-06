@@ -63,6 +63,7 @@ class Session(models.Model):
     number_of_registrants_allowed = models.IntegerField(default=8)
     facilitator = models.CharField(max_length=225, null=True)
     facilitator_email = models.CharField(max_length=225, null=True, blank=True)
+    session_complete = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title + ' ' + '(' + self.start_date + '-' + self.end_date + ')'
@@ -76,6 +77,7 @@ class SessionRegistrant(models.Model):
     comment = models.CharField(max_length=600, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     confirm = models.BooleanField(default=False)
+    completed = models.BooleanField(default=False)
     session = models.ForeignKey(
         Session, related_name='session_registrants', on_delete=CASCADE, null=True, blank=True)
 
