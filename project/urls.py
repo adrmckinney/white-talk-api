@@ -45,6 +45,7 @@ urlpatterns = [
     path('api/list-announcement/', api_views.ListAnnouncements.as_view()),
     path('api/retrieve-update-delete-announcement/<int:pk>/',
          api_views.RetrieveUpdateDestroyAnnouncement.as_view()),
+    path('api/list-registrants/', api_views.ListRegistrants.as_view()),
     path('api/delete-registrant/<int:pk>/',
          api_views.DeleteSessionRegistrant.as_view()),
     path('api/update-registrant/<int:pk>/',

@@ -18,7 +18,6 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class SessionRegisterSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = SessionRegistrant
         fields = [

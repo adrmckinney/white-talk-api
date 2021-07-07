@@ -107,6 +107,21 @@ class UpdateSession(UpdateAPIView):
         return Response(serializer.data)
 
 
+# ########################################
+# ########### REGISTRANTS ###############
+# #######################################
+
+class ListRegistrants(ListAPIView):
+    queryset = SessionRegistrant.objects.all()
+    serializer_class = SessionRegisterSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        registrants = SessionRegistrant.objects.all()
+        serializer = SessionRegisterSerializer(registrants, many=True)
+        return Response(serializer.data)
+
+
 class DeleteSessionRegistrant(DestroyAPIView):
     queryset = SessionRegistrant.objects.all()
     serializer_class = SessionRegisterSerializer
@@ -130,6 +145,10 @@ class UpdateSessionRegistrant(UpdateAPIView):
         serializer = SessionRegisterSerializer(registrant)
         return Response(serializer.data)
 
+
+# #######################################
+# ########### ANNOUNCEMENTS #############
+# #######################################
 
 class CreateAnnouncement(ListCreateAPIView):
     queryset = Announcement.objects.all()
